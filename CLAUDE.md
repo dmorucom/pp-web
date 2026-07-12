@@ -39,10 +39,10 @@ gh api repos/dmorucom/pp-web/pages --jq '{status,html_url,cname}'   # 빌드 상
 ## 지켜야 할 제약 (design constraints)
 
 - **단일 브랜드 주황 `#ff6600`만** 포인트 컬러로 쓴다(로고 배경색과 동일; 보라 `#7b2d8e`→주황에서 확정). 다른 강조색을 추가하지 않는다. 상세 기준·출처·접근성 주의는 `docs/brand.md` 참조.
-- Bootstrap/jQuery 등 프레임워크·CDN 의존을 **다시 들이지 않는다**(의도적으로 제거함). Google Fonts만 외부 의존.
+- Bootstrap/jQuery 등 프레임워크·CDN 의존을 **다시 들이지 않는다**(의도적으로 제거함). 허용된 외부 의존은 Google Fonts와 Cloudflare Web Analytics beacon(`static.cloudflareinsights.com/beacon.min.js`) 둘뿐이다.
 - 이미지 경로는 루트 기준 `images/...`(선행 슬래시·`../` 금지).
 - 모든 노출 텍스트는 한국어. 브랜드명 `팡팡에듀`, 시리즈명 `어휘력 팡팡`.
-- 범위 밖(추가하지 말 것): 블로그/CMS, 결제·장바구니, 다국어, 문의 폼 백엔드, 관리자, 애널리틱스.
+- 범위 밖(추가하지 말 것): 블로그/CMS, 결제·장바구니, 다국어, 문의 폼 백엔드, 관리자. (애널리틱스는 예외: Cloudflare Web Analytics만 도입 — `index.html` 하단 beacon 스니펫. 쿠키·개인정보 미수집이라 동의 배너 불필요. GA4 등 다른 추적 도구는 여전히 범위 밖.)
 
 ## 배포 & 계정 (중요)
 
