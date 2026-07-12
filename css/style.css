@@ -52,6 +52,7 @@
     font-size:14px;font-weight:500;color:var(--ink-2);
     position:relative;padding:4px 0;transition:color .2s;
   }
+  .nav-menu .btn{display:none}
   .nav-menu a::after{
     content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1.5px;
     background:var(--accent);transition:right .25s ease;
@@ -253,7 +254,7 @@
     .nav-menu.open{display:flex}
     .nav-menu a{padding:14px 0;border-bottom:1px solid var(--line-2);font-size:15px}
     .nav-menu a::after{display:none}
-    .nav-menu .btn{margin-top:14px;justify-content:center}
+    .nav-menu .btn{display:flex;margin-top:14px;justify-content:center}
     .nav-toggle{display:flex}
     .nav .btn.desk{display:none}
     section{padding:76px 0}
