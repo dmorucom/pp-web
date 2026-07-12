@@ -176,7 +176,6 @@
   .book .buy{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:-.01em;transition:gap .18s}
   .book .buy:hover{gap:10px}
   .book .buy .ar{font-size:14px}
-  .book .no{position:absolute;top:26px;right:26px;font-size:12px;color:var(--ink-3);font-weight:700;letter-spacing:.1em}
 
   /* ---------- ABOUT ---------- */
   #about{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
