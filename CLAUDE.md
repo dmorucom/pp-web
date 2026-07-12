@@ -47,7 +47,7 @@ gh api repos/dmorucom/pp-web/pages --jq '{status,html_url,cname}'   # 빌드 상
 ## 배포 & 계정 (중요)
 
 - 저장소 `dmorucom/pp-web`, 브랜치 `master`, GitHub Pages(root). 임시 URL `https://dmorucom.github.io/pp-web/`.
-- **커스텀 도메인 전환은 미완.** `CNAME`에 `www.pangpangedu.com`이 있으나, 이 도메인은 아직 기존 `dmorucom/web`이 사용 중이라 이 저장소엔 미할당(Pages `cname` = null). 전환하려면: `dmorucom/web`의 Pages 커스텀 도메인 해제 → 이 저장소 Settings→Pages에서 재지정. 같은 계정이라 레지스트라 DNS는 그대로 둬도 됨. **기존 `dmorucom/web`은 롤백 안전망으로 삭제하지 않는다.**
+- **커스텀 도메인 전환 완료 (2026-07-12).** `www.pangpangedu.com`이 이 저장소(`dmorucom/pp-web`)를 서빙한다(Pages `cname` 설정, HTTPS 강제). apex `pangpangedu.com` → `www`로 301 리다이렉트. DNS(레지스트라)는 이미 GitHub Pages를 가리켜 변경 없이 진행함. 구 저장소 `dmorucom/web`은 CNAME 파일만 제거(도메인 해제)했고 저장소 자체는 롤백 안전망으로 보존 — 되돌리려면 `web`에 CNAME 복구 후 `pp-web`에서 도메인 해제.
 - **`gh` 계정 권한:** `dmorucom`은 조직이 아니라 사용자 계정이며, 이 계정만 저장소에 push 가능. 다른 로그인 계정(gmoru·hanent110)은 쓰기 불가. 작업 전 `gh auth switch --user dmorucom` 필요.
 
 ## 설계 문서
