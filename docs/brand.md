@@ -21,10 +21,20 @@
 
 ## 로고
 
-- 파일: **`images/logo.svg`** (벡터, 모든 크기에서 선명). nav(34px)·footer(28px)에서 사용.
-- 형태: 주황(`#E5762C`) 라운드 사각 배지 + 흰색 반짝임(✦) 2개(큰 것 + 작은 것) = "팡팡"의 반짝임. "어휘력 팡팡" 도서 표지의 별 모티프와 연결.
-- 색을 바꾸면 SVG 안의 `fill="#e5762c"`(배지)와 `fill="#ffffff"`(반짝임)를 수정한다.
-- 구 로고 `images/logo.jpg`(보라, 35×35 저해상도)는 이 SVG로 대체되어 제거됨.
+- 사용 파일: **`images/logo.svg`** — nav(34px)·footer(28px)에서 사용.
+- 원본: **`images/logo.png`** (640×640, 공식 브랜드 로고). 형태 = 주황 배경 + 전구 모양 테두리 안에 갈색 "팡팡/에듀", 하단 흰색 "PANGPANGEDU".
+- `logo.svg`는 이 PNG를 base64로 **그대로 임베드**한 SVG다(`<image href="data:image/png;base64,…">`). 자동 벡터 트레이싱은 곡선·한글 글자를 근사치로 바꿔 디자인이 훼손되므로 쓰지 않고, 픽셀 동일성을 위해 임베드 방식을 택함.
+- **로고 교체 방법:** `images/logo.png`를 새 파일로 바꾼 뒤 아래로 svg 재생성:
+  ```bash
+  python3 - <<'PY'
+  import base64
+  b64 = base64.b64encode(open("images/logo.png","rb").read()).decode()
+  open("images/logo.svg","w").write(
+    f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-label="팡팡에듀 로고">\n  <image width="640" height="640" href="data:image/png;base64,{b64}"/>\n</svg>\n')
+  PY
+  ```
+  (원본 PNG의 크기가 640×640이 아니면 viewBox·width·height를 실제 값으로 맞출 것.)
+- 구 로고 `images/logo.jpg`(보라 35×35)와 임시 반짝임 SVG는 폐기됨.
 
 ## 접근성 참고
 
@@ -33,3 +43,4 @@
 ## 이력
 
 - 2026-07-12: 브랜드 포인트 컬러를 보라 `#7B2D8E` → 주황 `#E5762C`로 변경.
+- 2026-07-12: 로고를 공식 브랜드 로고(`logo.png`, 주황 전구형)로 교체하고 이를 임베드한 `logo.svg`로 서빙. (직전의 임시 반짝임 SVG는 폐기.)
