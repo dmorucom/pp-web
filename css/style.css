@@ -147,6 +147,8 @@
     display:grid;grid-template-columns:repeat(3,1fr);
     border-top:1px solid var(--line);border-left:1px solid var(--line);
   }
+  /* 소규모 시리즈(2권 이하)를 넓게 늘리지 않고 좌측 정렬 카드로 */
+  .books-grid.compact{grid-template-columns:repeat(2,minmax(0,320px))}
   .book{
     border-right:1px solid var(--line);border-bottom:1px solid var(--line);
     padding:30px 26px 32px;background:var(--paper);
@@ -269,6 +271,7 @@
   }
   @media(max-width:520px){
     .books-grid{grid-template-columns:1fr}
+    .books-grid.compact{grid-template-columns:min(320px,100%)}
     .hero-stats .st{border-right:none;margin-right:0;padding-right:0}
     .hero h1{font-size:clamp(34px,10vw,46px)}
     .contact-left,.contact-right{padding:32px 24px}

@@ -30,7 +30,7 @@ gh api repos/dmorucom/pp-web/pages --jq '{status,html_url,cname}'   # 빌드 상
 
 세 파일이 하나의 페이지를 이룬다. 셋의 계약(class/id)이 서로 맞아야 한다:
 
-- **`index.html`** — 6개 섹션의 마크업: NAV / HERO / BOOKS(도서: `어휘력 팡팡 · 우리집 시리즈` 3권 + `어휘력 팡팡 · 이게 이 뜻` 신간 — 각 시리즈가 `.sec-head` + `.books-grid` 그룹) / ABOUT / CONTACT / FOOTER. `<head>`에서 외부 `css/style.css`와 Google Fonts(Noto Sans KR)를, 하단에서 `js/main.js`를 로드한다. 인라인 `<style>` 블록은 두지 않는다(요소별 `style=""` 속성은 목업에서 온 것으로 허용).
+- **`index.html`** — 6개 섹션의 마크업: NAV / HERO / BOOKS(도서: `어휘력 팡팡 · 우리집 시리즈` 3권 + `어휘력 팡팡 · 이게 이 뜻?!` 시리즈 — 각 시리즈가 `.sec-head` + `.books-grid` 그룹. 소규모 시리즈는 `.books-grid.compact`로 2열 좌측정렬) / ABOUT / CONTACT / FOOTER. `<head>`에서 외부 `css/style.css`와 Google Fonts(Noto Sans KR)를, 하단에서 `js/main.js`를 로드한다. 인라인 `<style>` 블록은 두지 않는다(요소별 `style=""` 속성은 목업에서 온 것으로 허용).
 - **`css/style.css`** — 디자인 시스템 전체. `:root`의 CSS 변수가 단일 진실 원본: `--ink`(텍스트), `--accent:#ff6600`(유일한 포인트 컬러 = 브랜드 주황, 로고 배경색과 동일), `--accent-ink`(주황 10% 틴트), `--line`, `--paper` 등. 반응형 브레이크포인트 3개(1000/860/520px). 색·간격을 바꿀 땐 개별 규칙이 아니라 이 토큰을 먼저 본다.
 - **`js/main.js`** — 유일한 동작: 모바일 햄버거 네비. `#navToggle` 클릭 시 `#navMenu`에 `.open` 토글(+ `aria-expanded` 동기화), 메뉴 링크 클릭 시 닫힘. 이 세 심볼(`#navToggle`, `#navMenu`, `.open`)이 HTML·CSS·JS 사이의 계약이다.
 
