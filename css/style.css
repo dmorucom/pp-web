@@ -262,7 +262,7 @@
     .nav .btn.desk{display:none}
     section{padding:76px 0}
     .sec-head{flex-direction:column;align-items:flex-start;gap:6px}
-    .contact-grid{grid-template-columns:1fr}
+    #contact .contact-grid{grid-template-columns:1fr}
     .contact-left{border-right:none;border-bottom:1px solid var(--line);padding:40px 30px}
     .contact-right{padding:40px 30px}
     .hero-stats{flex-wrap:wrap}
