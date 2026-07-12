@@ -23,18 +23,33 @@
 ## 로고
 
 - 사용 파일: **`images/logo.svg`** — nav(34px)·footer(28px)에서 사용.
-- 원본: **`images/logo.png`** (640×640, 공식 브랜드 로고). 형태 = 주황 배경 + 전구 모양 테두리 안에 갈색 "팡팡/에듀", 하단 흰색 "PANGPANGEDU".
-- `logo.svg`는 이 PNG를 base64로 **그대로 임베드**한 SVG다(`<image href="data:image/png;base64,…">`). 자동 벡터 트레이싱은 곡선·한글 글자를 근사치로 바꿔 디자인이 훼손되므로 쓰지 않고, 픽셀 동일성을 위해 임베드 방식을 택함.
-- **로고 교체 방법:** `images/logo.png`를 새 파일로 바꾼 뒤 아래로 svg 재생성:
+- 원본: **`images/logo.png`** (640×640, 공식 브랜드 로고, 여백 넓음). 형태 = 주황 배경 + 전구 모양 테두리 안에 갈색 "팡팡/에듀", 하단 흰색 "PANGPANGEDU".
+- `logo.svg`는 원본 PNG에서 **콘텐츠(전구+글자) 경계를 찾아 여백을 최소로 정사각 크롭**한 이미지를 base64로 임베드한 것이다. 디자인(곡선·한글 글자) 훼손을 막기 위해 벡터 트레이싱은 쓰지 않고 크롭+임베드 방식을 택함. 작은 nav/footer 크기에서도 로고가 배지를 가득 채워 보이게 하는 것이 목적.
+- **로고 교체/재크롭 방법:** `images/logo.png`를 새 파일로 바꾼 뒤 아래 스크립트로 svg 재생성(콘텐츠 경계 자동 감지 → 정사각 타이트 크롭 → 임베드):
   ```bash
   python3 - <<'PY'
-  import base64
-  b64 = base64.b64encode(open("images/logo.png","rb").read()).decode()
+  from PIL import Image
+  import base64, io
+  im = Image.open("images/logo.png").convert("RGB"); W,H = im.size; px = im.load()
+  bg = px[5,5]                       # 모서리 = 배경색
+  far = lambda c: abs(c[0]-bg[0])+abs(c[1]-bg[1])+abs(c[2]-bg[2]) > 60
+  xs = [x for y in range(H) for x in range(W) if far(px[x,y])]
+  ys = [y for y in range(H) for x in range(W) if far(px[x,y])]
+  minx,maxx,miny,maxy = min(xs),max(xs),min(ys),max(ys)
+  cx,cy = (minx+maxx)//2,(miny+maxy)//2
+  side = round(max(maxx-minx+1, maxy-miny+1) * 1.08)   # 여백 약 8%(콘텐츠 ~92%)
+  h = side//2; l,t,r,b = cx-h,cy-h,cx-h+side,cy-h+side
+  if l<0: r-=l; l=0
+  if t<0: b-=t; t=0
+  if r>W: l-=r-W; r=W
+  if b>H: t-=b-H; b=H
+  buf = io.BytesIO(); im.crop((l,t,r,b)).save(buf,"PNG")
+  b64 = base64.b64encode(buf.getvalue()).decode(); s = r-l
   open("images/logo.svg","w").write(
-    f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-label="팡팡에듀 로고">\n  <image width="640" height="640" href="data:image/png;base64,{b64}"/>\n</svg>\n')
+    f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {s} {s}" width="{s}" height="{s}" role="img" aria-label="팡팡에듀 로고">\n  <image width="{s}" height="{s}" href="data:image/png;base64,{b64}"/>\n</svg>\n')
   PY
   ```
-  (원본 PNG의 크기가 640×640이 아니면 viewBox·width·height를 실제 값으로 맞출 것.)
+  (여백을 더/덜 주려면 `1.08` 배율 조정. 배경이 단색이 아니면 경계 감지 로직을 손봐야 함.)
 - 구 로고 `images/logo.jpg`(보라 35×35)와 임시 반짝임 SVG는 폐기됨.
 
 ## 접근성 참고
