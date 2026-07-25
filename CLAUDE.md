@@ -54,5 +54,6 @@ gh api repos/dmorucom/pp-web/pages --jq '{status,html_url,cname}'   # 빌드 상
 
 - 브랜드 컬러 기준: `docs/brand.md`
 - 방문 분석(Cloudflare Web Analytics): `docs/analytics.md`
+- 페이지 영역 이름 지도(6개 영역·하위 요소 명칭): `docs/page-structure.md`
 - 스펙: `docs/superpowers/specs/2026-07-12-pangpangedu-homepage-renewal-design.md`
 - 구현 계획: `docs/superpowers/plans/2026-07-12-pangpangedu-homepage-renewal.md`
