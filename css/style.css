@@ -244,7 +244,9 @@
     .hero-grid{grid-template-columns:1fr}
     .hero-left{border-right:none;border-bottom:1px solid var(--line);padding:72px 0 66px}
     .hero-left-inner{margin:0 auto;padding:0 var(--gut);max-width:var(--maxw)}
-    .hero-right{padding:56px 30px}
+    .hero-right{flex-direction:column;gap:22px;padding:44px 30px}
+    .hero-tagpill{position:static}
+    .hero-caption{position:static}
     .books-grid{grid-template-columns:repeat(2,1fr)}
     .about-grid{grid-template-columns:1fr;gap:44px}
   }
